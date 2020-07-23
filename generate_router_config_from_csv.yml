@@ -19,7 +19,7 @@
   - name: generate router configuration file
     template: 
       src=router_configuration.j2
-      dest={{ item.switch.hostname }}.cfg
+      dest={{ item.router.hostname }}.cfg
     delegate_to: localhost
     with_items: "{{ devices }}"
 
