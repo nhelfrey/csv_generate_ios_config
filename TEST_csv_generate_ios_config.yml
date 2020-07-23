@@ -1,5 +1,5 @@
 ---
-- name: Create VM Guest using linux Template
+- name: Create IOS Router Configuration File
   hosts: localhost
   gather_facts: False
   connection: local
