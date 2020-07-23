@@ -6,10 +6,13 @@ devices:
 {%     set list = item.split(",") %}
 
   - router: 
-      hostname: '{{ list[0]|trim() }}'
-      interface: '{{ list[1]|trim() }}'
-      interface_ip: '{{ list[2]|trim() }}'
-      interface_mask: '{{ list[3]|trim() }}'
-      interface_description: '{{ list[4]|trim() }}'
+      hostname: '{{ list[0]|trim()|upper }}'
+      name_server_1: '{{ list[1]|trim() }}'
+      name_server_2: '{{ list[2]|trim() }}'
+      username: '{{ list[3]|trim() }}'
+      secret: '{{ list[4]|trim() }}'
+      loopback0_IP: '{{ list[5]|trim() }}'
+      loopback0_netmask: '{{ list[6]|trim() }}'
+      tunnel_interface: 
 {%   endif %}
 {% endfor %}
