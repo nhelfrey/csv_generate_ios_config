@@ -1,3 +1,4 @@
+{# this file takes data stored in a variable "csvfile" from a csv file and converts into yml format for use in the playbook #}
 ---
 devices:
 {% for item in csvfile.split("\n") %}
