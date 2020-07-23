@@ -8,7 +8,11 @@
     csvfile: "{{ lookup('file', 'router_variables.csv') }}"
  
   tasks: 
-  - include: csv-to-yml.yml 
+  - name: Parse CSV To YAML
+    template:
+      src: "./yml-template.j2"
+      dest: "./config_variables.yml"
+    run_once: true
 
   - include_vars: config_variables.yml
 
