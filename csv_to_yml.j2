@@ -13,6 +13,6 @@ devices:
       secret: '{{ list[4]|trim() }}'
       loopback0_IP: '{{ list[5]|trim() }}'
       loopback0_netmask: '{{ list[6]|trim() }}'
-      tunnel_interface: 
+      tunnel_interface: '{{ list[7]|trim() }}'
 {%   endif %}
 {% endfor %}
