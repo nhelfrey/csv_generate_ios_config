@@ -16,7 +16,7 @@
 
   - include_vars: config_variables.yml
 
-  - name: generate leaf config
+  - name: generate router config
     template: 
       src=config_template.j2
       dest={{ item.switch.hostname }}.cfg
