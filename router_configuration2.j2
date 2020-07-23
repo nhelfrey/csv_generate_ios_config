@@ -3,7 +3,7 @@ service timestamps debug datetime msec
 service timestamps log datetime msec
 service password-encryption
 !
-hostname R101
+hostname {{ item.router.hostname }}
 !
 aaa new-model
 !
