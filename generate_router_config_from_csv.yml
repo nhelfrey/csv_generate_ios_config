@@ -16,9 +16,9 @@
 
   - include_vars: config_variables.yml
 
-  - name: generate router config
+  - name: generate router configuration file
     template: 
-      src=config_template.j2
+      src=router_configuration.j2
       dest={{ item.switch.hostname }}.cfg
     delegate_to: localhost
     with_items: "{{ devices }}"
