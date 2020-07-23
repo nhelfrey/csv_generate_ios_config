@@ -6,15 +6,6 @@
   
   vars:
     csvfile: "{{ lookup('file', 'testcsv.csv') }}"
-  
-#  vars_prompt:
-#    - name: "user"
-#      prompt: "Enter vCenter Username:"
-#      private: no
-#      default: "administrator@vsphere.local"
-#    - name: "password"
-#      prompt: "Enter vCenter User Password:"
-#      private: yes
  
   tasks: 
   - include: csv-to-yml.yml 
