@@ -11,38 +11,38 @@ aaa authentication login default local
 aaa authentication enable default none
 aaa authorization exec default local
 !
-ip name-server 8.8.4.4 8.8.8.8
+ip name-server {{ item.rouer.name_server_1 }} {{ item.router.name_server_2 }}
 !
 login on-success log
 !
 spanning-tree extend system-id
 !
 username ec2-user privilege 15
-username siduser101 privilege 15 secret 9 $9$PcFjM9nD.GpEo.$bTumXDQZxEavdZjJyaRfF9DvwB/5cAf2Etb6rWn.78s
+username {{ item.router.username }} privilege 15 secret {{ item.router.secret }}
 !
 interface Loopback0
  description Loopback0
- ip address 172.17.101.1 255.255.255.255
+ ip address {{ item.router.loopback0_IP }} {{ item.router.loopback0_netmask }}
 !
-interface Tunnel101
- description Tunnel to R0
- ip address 172.16.101.10 255.255.255.0
- tunnel source GigabitEthernet2
- tunnel destination 10.2.0.10
+interface {{ item.router.tunnel_interface }}
+ description {{ item.router.tunnel_interface_description }}
+ ip address {{ item.router.tunnel_interface_IP }} {{ item.router.tunnel_interface_netmask }}
+ tunnel source {{ item.router.tunnel_source }}
+ tunnel destination {{ item.router.tunnel_destination }}
 !
 interface GigabitEthernet1
- description MANAGEMENT
- ip address dhcp
+ description {{ item.router.interface_gigabitethernet1_description }}
+ ip address {{ item.router.interface_gigabitethernet1_ipaddress }}
  negotiation auto
 !
 interface GigabitEthernet2
- description WAN
- ip address dhcp
+ description {{ item.router.interface_gigabitethernet2_description }}
+ ip address {{ item.router.interface_gigabitethernet2_ipaddress }}
  negotiation auto
 !
-router ospf 1
- router-id 172.17.101.1
- network 0.0.0.0 255.255.255.255 area 0
+router ospf {{ item.router.ospf_process_ID }}
+ router-id {{ item.router.ospf_router_ID }}
+ network {{ item.router.ospf_network }} area {{item.router.ospf_area }}
 !
 ip forward-protocol nd
 ip tcp window-size 8192
@@ -58,7 +58,7 @@ ip scp server enable
 snmp-server community popcorn RO
 snmp-server community caramelpopcorn RW
 !
-banner motd ^C oops you ran this without reading the playbook first ^C
+banner motd ^C {{ item.router.banner_motd }} ^C
 !
 line con 0
  stopbits 1
