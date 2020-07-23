@@ -11,7 +11,7 @@ aaa authentication login default local
 aaa authentication enable default none
 aaa authorization exec default local
 !
-ip name-server {{ item.rouer.name_server_1 }} {{ item.router.name_server_2 }}
+ip name-server {{ item.router.name_server_1 }} {{ item.router.name_server_2 }}
 !
 login on-success log
 !
