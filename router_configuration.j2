@@ -1,5 +1,5 @@
-hostname {{ item.switch.hostname }}
+hostname {{ item.router.hostname }}
 
-interface {{ item.switch.interface }}
- ip address {{ item.switch.interface_ip }} {{ item.switch.interface_mask }}
- description {{ item.switch.interface_description }}
+interface {{ item.router.interface }}
+ ip address {{ item.router.interface_ip }} {{ item.switch.interface_mask }}
+ description {{ item.router.interface_description }}
