@@ -1,0 +1,70 @@
+
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname R101
+!
+aaa new-model
+!
+aaa authentication login default local
+aaa authentication enable default none
+aaa authorization exec default local
+!
+ip name-server 8.8.4.4 8.8.8.8
+!
+login on-success log
+!
+spanning-tree extend system-id
+!
+username ec2-user privilege 15
+username siduser101 privilege 15 secret 9 $9$PcFjM9nD.GpEo.$bTumXDQZxEavdZjJyaRfF9DvwB/5cAf2Etb6rWn.78s
+!
+interface Loopback0
+ description Loopback0
+ ip address 172.17.101.1 255.255.255.255
+!
+interface Tunnel101
+ description Tunnel to R0
+ ip address 172.16.101.10 255.255.255.0
+ tunnel source GigabitEthernet2
+ tunnel destination 10.2.0.10
+!
+interface GigabitEthernet1
+ description MANAGEMENT
+ ip address dhcp
+ negotiation auto
+!
+interface GigabitEthernet2
+ description WAN
+ ip address dhcp
+ negotiation auto
+!
+router ospf 1
+ router-id 172.17.101.1
+ network 0.0.0.0 255.255.255.255 area 0
+!
+ip forward-protocol nd
+ip tcp window-size 8192
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 GigabitEthernet1 10.1.0.1
+ip ssh rsa keypair-name ssh-key
+ip ssh version 2
+ip scp server enable
+!
+snmp-server community popcorn RO
+snmp-server community caramelpopcorn RW
+!
+banner motd ^C oops you ran this without reading the playbook first ^C
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 20
+ login local
+ transport input ssh
